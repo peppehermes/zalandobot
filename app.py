@@ -1,20 +1,15 @@
-# This is a sample Python script.
 import re
 
-# Press Maiusc+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-# import everything
-from flask import Flask, request
 import telegram
-from telebot.credentials import bot_token, bot_user_name, URL
+from flask import Flask, request
+
+from telebot.credentials import bot_token, URL
 
 global bot
 global TOKEN
 TOKEN = bot_token
 bot = telegram.Bot(token=TOKEN)
 
-# start the flask app
 app = Flask(__name__)
 
 
@@ -58,12 +53,9 @@ def respond():
     return 'ok'
 
 
-@app.route('/setwebhook', methods=['GET', 'POST'])
+@app.route('/set_webhook', methods=['GET', 'POST'])
 def set_webhook():
-    # we use the bot object to link the bot to our app which live
-    # in the link provided by URL
     s = bot.setWebhook('{URL}{HOOK}'.format(URL=URL, HOOK=TOKEN))
-    # something to let us know things work
     if s:
         return "webhook setup ok"
     else:
@@ -76,6 +68,4 @@ def index():
 
 
 if __name__ == '__main__':
-    # note the threaded arg which allow
-    # your app to have more than one thread
     app.run(threaded=True)
