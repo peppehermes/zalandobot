@@ -23,7 +23,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-@app.route('/{}'.format(TOKEN), methods=['POST'])
+@app.route('/')
+def index():
+    return '.'
+
+
+@app.route('/', methods=['POST'])
 def respond():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
@@ -73,11 +78,6 @@ def set_webhook():
         return "webhook setup ok"
     else:
         return "webhook setup failed"
-
-
-@app.route('/')
-def index():
-    return '.'
 
 
 if __name__ == '__main__':
