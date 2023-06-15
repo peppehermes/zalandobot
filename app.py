@@ -9,6 +9,8 @@ from telebot.credentials import bot_token, URL
 global bot
 global TOKEN
 TOKEN = bot_token
+HOST = '0.0.0.0'
+PORT = 8000
 bot = telegram.Bot(token=TOKEN)
 
 app = Flask(__name__)
@@ -79,4 +81,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(threaded=True)
+    app.run(threaded=True, host=HOST, port=PORT)
